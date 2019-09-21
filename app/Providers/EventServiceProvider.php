@@ -6,6 +6,10 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Event;
+use App\Events\AnkaraCompEng\AnnouncementCreatedEvent;
+use App\Events\AnkaraCompEng\AnnouncementUpdatedEvent;
+use App\Listeners\Telegram\AnkaraCompEng\SendAnnouncementCreatedMessage;
+use App\Listeners\Telegram\AnkaraCompEng\SendAnnouncementUpdatedMessage;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -17,6 +21,12 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         Registered::class => [
             SendEmailVerificationNotification::class,
+        ],
+        AnnouncementCreatedEvent::class => [
+            SendAnnouncementCreatedMessage::class,
+        ],
+        AnnouncementUpdatedEvent::class => [
+            SendAnnouncementUpdatedMessage::class,
         ],
     ];
 

@@ -3,6 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Events\AnkaraCompEng\AnnouncementCreatedEvent;
+use App\Events\AnkaraCompEng\AnnouncementUpdatedEvent;
 
 class Announcement extends Model
 {
@@ -13,5 +15,10 @@ class Announcement extends Model
 		'remote_id',
 		'remote_updated_at',
 		'remote_created_at',
+    ];
+
+    protected $dispatchesEvents	= [
+    	'created'		=> AnnouncementCreatedEvent::class,
+    	'updated'		=> AnnouncementUpdatedEvent::class,
     ];
 }

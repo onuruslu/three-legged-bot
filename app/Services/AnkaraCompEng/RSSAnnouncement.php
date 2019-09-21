@@ -23,14 +23,18 @@ class RSSAnnouncement{
             ),
             'http://comp.eng.ankara.edu.tr/?p=%d');
 
-			Announcement::updateOrCreate([
-				'title'					=> $item->getTitle(),
-				'text'					=> $item->getContent(),
-				'link'					=> $item->getPermalink(),
-				'remote_id'				=> $remote_id,
-				'remote_updated_at'		=> $item->getDateCreated(),
-				'remote_created_at'		=> $item->getDateModified(),
-			]);
+			Announcement::updateOrCreate(
+				[
+					'remote_id'				=> $remote_id,
+				],
+				[
+					'title'					=> $item->getTitle(),
+					'text'					=> $item->getContent(),
+					'link'					=> $item->getPermalink(),
+					'remote_updated_at'		=> $item->getDateCreated()->format('Y-m-d H:i:s'),
+					'remote_created_at'		=> $item->getDateModified()->format('Y-m-d H:i:s'),
+				]
+			);
 			
 		}
 	}

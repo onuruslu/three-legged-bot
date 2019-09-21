@@ -18,7 +18,7 @@ class CreateAnnouncementsTable extends Migration
             $table->string('title');
             $table->text('text');
             $table->string('link');
-            $table->string('remote_id');
+            $table->string('remote_id')->unique();
             $table->dateTimeTz('remote_updated_at');
             $table->dateTimeTz('remote_created_at');
             $table->timestamps();
