@@ -2,7 +2,7 @@
 
 namespace App\Services\AnkaraCompEng\ScanningLessonPages\Bots;
 
-use App\Services\AnkaraCompEng\Ayca;
+use App\Services\AnkaraCompEng\ScanningLessonPages\Ayca;
 use Illuminate\Support\Facades\Cache;
 
 class Main {
@@ -11,6 +11,9 @@ class Main {
 
 	public $sourceCode;
 	public $client;
+	public $pageTitle;
+	public $contentSourceCode;
+	protected $activeLink;
 
 	public function __construct(){
 		$this->client		= new Ayca();
@@ -26,13 +29,28 @@ class Main {
 		return $this->sourceCode;
 	}
 
-	public function cropContent($link){
+	private function cropPageTitle(){
+		preg_match('~<title>(?\'pageTitle\'.+) \| Bilgisayar~iU', $this->sourceCode, $output);
+
+		if(isset($output['pageTitle']))
+			$this->pageTitle				= $output['pageTitle'];
+
+		return $this->pageTitle;
+	}
+
+	private function cropContent(){
+		preg_match('~<div class="entry-content">\s*?(?\'content\'.*)\s*</div><!-- \.entry-content -->~sU', $this->sourceCode, $output);
+
+		if(isset($output['content']))
+			$this->contentSourceCode	= $output['content'];
+
+		return $this->contentSourceCode;
+	}
+
+	public function cropBlocks($link){
 		$this->scanPage($link);
-
-		preg_match('~<div class="entry-content">\s*?(.*)\s*</div><!-- \.entry-content -->~sU', $this->sourceCode, $output);
-		$contentSourceCode	= $output[1];
-
-		return $contentSourceCode;
+		$this->cropPageTitle();
+		$this->cropContent();
 	}
 
 	public function isItLoginPage($contentSourceCode){
@@ -40,7 +58,6 @@ class Main {
 	}
 
 	public function login($link){
-		echo 'login çalıştı';
 		$response			= $this->client->post(
 			self::LOGIN_PAGE_URL,
 			[
@@ -62,5 +79,18 @@ class Main {
 		);
 
 		return $response->getBody()->getContents();
+	}
+
+	protected function setActiveLink(string $activeLink){
+		$this->activeLink			= $activeLink;
+		$this->pageTitle			= $activeLink;
+	}
+
+	public function getActiveLink(){
+		return $this->activeLink;
+	}
+
+	public function getPageTitle(){
+		return isset($this->pageTitle) ? $this->pageTitle : $this->activeSemesterLink;
 	}
 }

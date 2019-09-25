@@ -2,16 +2,25 @@
 
 namespace App\Services\AnkaraCompEng\ScanningLessonPages\Bots;
 
+use App\Services\AnkaraCompEng\ScanningLessonPages\Entities\Level as eLevel;
+
 class Lesson extends Main {
-	private $activeLessonLink;
-
-	public function __construct(string $activeLessonLink){
+	public function __construct(string $activeLink){
 		parent::__construct();
+		
+		$this->setActiveLink($activeLink);
+	}
 
-		$this->activeLessonLink		= $activeLessonLink;
+	public function scan(){
+		$this->cropBlocks($this->getActiveLink());
+	}
 
-		$contentSourceCode			= $this->cropContent($this->activeLessonLink);
+	public function save(eLevel $parent){
+		$this->scan();
 
-		return $contentSourceCode;
+		return $parent->lessons()->firstOrCreate(
+			['link'					=> $this->getActiveLink()],
+			['title'				=> html_entity_decode($this->getPageTitle())]
+		);
 	}
 }

@@ -2,30 +2,41 @@
 
 namespace App\Services\AnkaraCompEng\ScanningLessonPages\Bots;
 
+use App\Services\AnkaraCompEng\ScanningLessonPages\Entities\Semester as eSemester;
+
 class Semester extends Main {
-	CONST FALL_SEMESTER_LINK	= 'http://comp.eng.ankara.edu.tr/lisans-egitimi/ders-sayfalari/';
-	CONST SPRING_SEMESTER_LINK	= 'http://comp.eng.ankara.edu.tr/lisans-egitimi/ders-sayfalari-bahar-donemi/';
-	CONST SUMMER_SEMESTER_LINK	= 'http://comp.eng.ankara.edu.tr/ders-sayfalari-2018-2019-egitim-ogretim-yili-yaz-donemi/';
+	private $links;
 
-	private $activeSemesterLink;
-
-	public function __construct(string $activeSemesterLink){
+	public function __construct(string $activeLink){
 		parent::__construct();
 		
-		$this->activeSemesterLink	= $activeSemesterLink;
+		$this->setActiveLink($activeLink);
 	}
 
-	public function getLevelPageLinks(){
-		$contentSourceCode			= $this->cropContent($this->activeSemesterLink);
+	public function scan(){
+		$this->cropBlocks($this->getActiveLink());
 
-		preg_match_all('~<a href=[`"\'](?\'link\'[^"\'`]+)(?<!\.[a-z]{3}|\.[a-z]{4})[`"\']>(?\'title\'.+)</a>~sU', $contentSourceCode, $output);
+		preg_match_all('~<a href=[`"\'](?\'link\'[^"\'`]+)(?<!\.[a-z]{3}|\.[a-z]{4})[`"\']>(?\'title\'.+)</a>~sU', $this->contentSourceCode, $output);
 
-		return array_reverse($output['link']);
+		$this->links				= array_reverse($output['link']);
 	}
 
 	public function level(int $level){
-		$links				= $this->getLevelPageLinks();
+		$this->scan();
 
-		return new Level($links[$level-1]);
+		return new Level($this->links[$level-1]);
+	}
+
+	public function getLinks(){
+		return $this->links;
+	}
+
+	public function save(){
+		$this->scan();
+
+		return eSemester::firstOrCreate(
+			['link'					=> $this->getActiveLink()],
+			['title'				=> html_entity_decode($this->getPageTitle())]
+		);
 	}
 }

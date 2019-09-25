@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Level extends Model
 {
+	protected $fillable	= ['title', 'link'];
+	
     public function semester(){
     	return $this->belongsTo(Semester::class, 'semester_id');
     }

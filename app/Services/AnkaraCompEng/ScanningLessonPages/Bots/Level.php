@@ -2,27 +2,42 @@
 
 namespace App\Services\AnkaraCompEng\ScanningLessonPages\Bots;
 
-class Level extends Main {
-	private $activeLevelLink;
+use App\Services\AnkaraCompEng\ScanningLessonPages\Entities\Semester as eSemester;
 
-	public function __construct(string $activeLevelLink){
+class Level extends Main {
+	private $links;
+
+	public function __construct(string $activeLink){
 		parent::__construct();
 		
-		$this->activeLevelLink	= $activeLevelLink;
+		$this->setActiveLink($activeLink);
 	}
 
-	public function getLevelPageLinks(){
-		$contentSourceCode			= $this->cropContent($this->activeLevelLink);
+	public function scan(){
+		$this->cropBlocks($this->getActiveLink());
 
-		preg_match_all('~<a href=[`"\'](?\'link\'[^"\'`]+)(?<!\.[a-z]{3}|\.[a-z]{4})[`"\']>(?\'title\'.*(?\'code\'[a-zA-Z]{3}[0-9]{3}).*)</a>~sU', $contentSourceCode, $output);
+		preg_match_all('~<a href=[`"\'](?\'link\'[^"\'`]+)(?<!\.[a-z]{3}|\.[a-z]{4})[`"\']>(?\'title\'.*(?\'code\'[a-zA-Z]{3}[0-9]{3}).*)</a>~sU', $this->contentSourceCode, $output);
 
-		return array_combine($output['code'], $output['link']);
+		$this->links	= array_combine($output['code'], $output['link']);
 	}
 
 	public function lesson($lessonCode){
-		$links		= $this->getLevelPageLinks();
+		$this->scan();
 
 		// TODO: If there is no lessons with given code, throw exception
-		return new Lesson($links[$lessonCode]);
+		return new Lesson($this->links[$lessonCode]);
+	}
+
+	public function getLinks(){
+		return $this->links;
+	}
+
+	public function save(eSemester $parent){
+		$this->scan();
+
+		return $parent->levels()->firstOrCreate(
+			['link'					=> $this->getActiveLink()],
+			['title'				=> html_entity_decode($this->getPageTitle())]
+		);
 	}
 }

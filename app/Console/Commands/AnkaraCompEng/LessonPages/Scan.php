@@ -3,6 +3,7 @@
 namespace App\Console\Commands\AnkaraCompEng\LessonPages;
 
 use Illuminate\Console\Command;
+use App\Jobs\ScanSemester;
 
 class Scan extends Command
 {
@@ -11,7 +12,7 @@ class Scan extends Command
      *
      * @var string
      */
-    protected $signature = 'scan:3legsbot-pages';
+    protected $signature = 'scan:3legsbot-pages {semester-link: Link of the semester page (Eg: http://comp.eng.ankara.edu.tr/lisans-egitimi/ders-sayfalari/)}';
 
     /**
      * The console command description.
@@ -37,6 +38,9 @@ class Scan extends Command
      */
     public function handle()
     {
-        //
+        $semesterLink       = $this->argument('semester-link');
+
+        ScanSemester::dispatchNow($semesterLink);
+
     }
 }
