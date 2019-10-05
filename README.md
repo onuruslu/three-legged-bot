@@ -9,7 +9,7 @@
 	- [ ] Telegram (?)
 
 - [ ] Ders Sayfaları Değişiklik Kontrolü
-	- [ ] Laravel
+	- [x] Laravel
 	- [ ] Telegram
 
 - [ ] Telegram Kullanıcıları
