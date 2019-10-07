@@ -11,7 +11,7 @@ use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use App\Announcement;
 
-class AnnouncementCreatedEvent
+class AnnouncementUpdated
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 

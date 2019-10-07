@@ -10,6 +10,8 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
+use App\Services\AnkaraCompEng\ScanningLessonPages\Entities\LessonPage;
+
 class LessonPageCreated
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;

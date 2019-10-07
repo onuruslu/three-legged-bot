@@ -3,13 +3,21 @@
 namespace App\Services\AnkaraCompEng\ScanningLessonPages\Entities;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Events\AnkaraCompEng\LessonPageCreated;
 
 class LessonPage extends Model
 {
 	protected $fillable	= ['text', 'diff'];
+    protected $casts = [
+        'diff' => 'array',
+    ];
+
+    protected $dispatchesEvents = [
+        'created' => LessonPageCreated::class,
+    ];
 	
     public function lesson(){
-    	$this->belongsTo(Lesson::class, 'lesson_id');
+    	return $this->belongsTo(Lesson::class, 'lesson_id');
     }
 
     public function previous(int $sequence = 1){

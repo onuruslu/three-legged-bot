@@ -5,6 +5,8 @@ namespace App\Listeners\Telegram\AnkaraCompEng;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
+use App\Facades\ThreeLeggedBotFacade;
+
 class SendAnnouncementCreatedMessage
 {
     /**
@@ -15,6 +17,9 @@ class SendAnnouncementCreatedMessage
      */
     public function handle($event)
     {
-        $announcement       = $event->getAnnouncement();
+        $announcement           = $event->getAnnouncement();
+        $ThreeLeggedBotFacade   = new ThreeLeggedBotFacade;
+
+        $ThreeLeggedBotFacade->sendAnnouncement('723019950', $announcement);
     }
 }

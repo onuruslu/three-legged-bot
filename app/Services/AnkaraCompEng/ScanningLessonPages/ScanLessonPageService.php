@@ -11,19 +11,21 @@ class ScanLessonPageService{
         $lesson                     = new Lesson($eLesson->link);
         $lesson->scan();
         $sourceCode           		= $lesson->contentSourceCode;
-        $sourceText          		= html_entity_decode(strip_tags($sourceCode));
+        $sourceText          		= strip_tags($sourceCode);
+        $sourceText                 = str_replace("&nbsp;", ' ', $sourceText);
+        $sourceText                 = html_entity_decode($sourceText);
 
-        $previousLessonPageEntity   = $eLesson->history()->exists() ? $eLesson->lastPage : '';
+        $previousLessonPageEntity   = $eLesson->history()->exists() ? $eLesson->lastPage() : '';
 
         $differ                     = new Differ();
         $diff                       = $differ->diffToArray(
-                                            $previousLessonPageEntity,
+                                            $previousLessonPageEntity->text,
                                             $sourceText
                                         );
 
         $eLesson->history()->create([
             'text'      => $sourceText,
-            'diff'      => json_encode($diff),
+            'diff'      => $diff,
         ]);
 	}
 }

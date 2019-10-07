@@ -3,8 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Events\AnkaraCompEng\AnnouncementCreatedEvent;
-use App\Events\AnkaraCompEng\AnnouncementUpdatedEvent;
+use App\Events\AnkaraCompEng\AnnouncementCreated;
+use App\Events\AnkaraCompEng\AnnouncementUpdated;
 
 class Announcement extends Model
 {
@@ -18,7 +18,7 @@ class Announcement extends Model
     ];
 
     protected $dispatchesEvents	= [
-    	'created'		=> AnnouncementCreatedEvent::class,
-    	'updated'		=> AnnouncementUpdatedEvent::class,
+    	'created'		=> AnnouncementCreated::class,
+    	'updated'		=> AnnouncementUpdated::class,
     ];
 }
