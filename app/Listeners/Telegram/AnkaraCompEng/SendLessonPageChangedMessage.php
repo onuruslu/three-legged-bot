@@ -6,6 +6,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 use App\Facades\ThreeLeggedBotFacade;
+use App\User;
 
 class SendLessonPageChangedMessage
 {
@@ -20,6 +21,9 @@ class SendLessonPageChangedMessage
         $lessonPage             = $event->getLessonPage();
         $ThreeLeggedBotFacade   = new ThreeLeggedBotFacade;
 
-        $ThreeLeggedBotFacade->sendLessonPageDiff('723019950', $lessonPage);
+        $users                  = $lessonPage->lesson->users;
+
+        foreach($users as $user)
+            $ThreeLeggedBotFacade->sendLessonPageDiff($user->telegram_id, $lessonPage);
     }
 }

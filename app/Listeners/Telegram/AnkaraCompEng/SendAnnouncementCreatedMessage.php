@@ -6,6 +6,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 use App\Facades\ThreeLeggedBotFacade;
+use App\User;
 
 class SendAnnouncementCreatedMessage
 {
@@ -20,6 +21,9 @@ class SendAnnouncementCreatedMessage
         $announcement           = $event->getAnnouncement();
         $ThreeLeggedBotFacade   = new ThreeLeggedBotFacade;
 
-        $ThreeLeggedBotFacade->sendAnnouncement('723019950', $announcement);
+        $users                  = User::get();
+
+        foreach($users as $user)
+            $ThreeLeggedBotFacade->sendAnnouncement($user->telegram_id, $announcement);
     }
 }

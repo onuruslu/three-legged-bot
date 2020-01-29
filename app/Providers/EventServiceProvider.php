@@ -10,6 +10,7 @@ use App\Events\AnkaraCompEng\AnnouncementCreated;
 use App\Events\AnkaraCompEng\AnnouncementUpdated;
 use App\Events\AnkaraCompEng\LessonPageCreated;
 use App\Listeners\Telegram\AnkaraCompEng\SendAnnouncementCreatedMessage;
+use App\Listeners\Telegram\AnkaraCompEng\SendAnnouncementUpdatedMessage;
 use App\Listeners\Telegram\AnkaraCompEng\SendLessonPageChangedMessage;
 
 class EventServiceProvider extends ServiceProvider

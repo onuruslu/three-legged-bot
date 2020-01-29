@@ -3,9 +3,11 @@
 namespace App\Facades;
 
 use Telegram;
+use Telegram\Bot\Objects\User as TelegramUser;
+use App\Announcement;
+use App\User;
 use App\Transformers\AnnouncementTransformer;
 use App\Transformers\LessonPageTransformer;
-use App\Announcement;
 use App\Services\AnkaraCompEng\ScanningLessonPages\Entities\LessonPage;
 
 class ThreeLeggedBotFacade{
@@ -75,5 +77,24 @@ class ThreeLeggedBotFacade{
         }
 
         return $newMessages;
+    }
+
+    public static function createOrUpdateUser(TelegramUser $telegramUser) : User
+    {
+        $name = $telegramUser->getFirstName();
+        $name .= ($telegramUser->getLastName() != null ? $telegramUser->getLastName() : '');
+
+        $user = User::updateOrCreate(
+            [
+                'telegram_id' => $telegramUser->getId(),
+            ],
+            [
+                'name' => $name,
+                'password' => $telegramUser->getId(),
+                'telegram_username' => $telegramUser->getUsername(),
+                'telegram_language_code' => $telegramUser->getLanguageCode(),
+            ]);
+
+        return $user;
     }
 }

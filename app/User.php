@@ -5,10 +5,13 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Services\AnkaraCompEng\ScanningLessonPages\Entities\Lesson;
 
 class User extends Authenticatable
 {
     use Notifiable;
+
+    CONST TELEGRAM_MAIL_DOMAIN = 'telegram.com';
 
     /**
      * The attributes that are mass assignable.
@@ -16,7 +19,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'telegram_id', 'telegram_username', 'telegram_language_code'
     ];
 
     /**
@@ -36,4 +39,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function setTelegramIdAttribute($value)
+    {
+        $this->attributes['telegram_id'] = $value;
+        $this->attributes['email'] = $value . '@' . self::TELEGRAM_MAIL_DOMAIN;
+    }
+
+    public function lessons(){
+        return $this->belongsToMany(Lesson::class);
+    }
 }

@@ -15,18 +15,21 @@ class ScanLessonPageService{
         $sourceText                 = str_replace("&nbsp;", ' ', $sourceText);
         $sourceText                 = html_entity_decode($sourceText);
 
-        $previousLessonPageEntity   = $eLesson->history()->exists() ? $eLesson->lastPage() : '';
+        $previousLessonPageEntity   = $eLesson->history()->exists() ? $eLesson->lastPage() : null;
 
         $differ                     = new Differ();
         $diff                       = $differ->diffToArray(
-                                            $previousLessonPageEntity->text,
+                                            $previousLessonPageEntity ? $previousLessonPageEntity->text : '',
                                             $sourceText
                                         );
 
-        $eLesson->history()->create([
-            'text'      => $sourceText,
-            'diff'      => $diff,
-        ]);
+        if( !$previousLessonPageEntity
+            || ($previousLessonPageEntity && md5($previousLessonPageEntity->text) !== md5($sourceText))
+        )
+            $eLesson->history()->create([
+                'text'      => $sourceText,
+                'diff'      => $diff,
+            ]);
 	}
 }
 

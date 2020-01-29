@@ -1,25 +1,26 @@
 <?php
 
-namespace App\Console\Commands\AnkaraCompEng\LessonPages;
+namespace App\Console\Commands\AnkaraCompEng;
 
 use Illuminate\Console\Command;
-use App\Jobs\ScanSemester;
+use App\Jobs\ScanLessonPage;
+use App\Services\AnkaraCompEng\ScanningLessonPages\Entities\Lesson;
 
-class Scan extends Command
+class UpdateLessonPage extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'scan:3legsbot-pages';
+    protected $signature = 'update:3legsbot-lesson-pages';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Scans the lesson pages and saves them to the database';
+    protected $description = 'Updates the lesson page records.';
 
     /**
      * Create a new command instance.
@@ -38,12 +39,9 @@ class Scan extends Command
      */
     public function handle()
     {
-        $semesterLink = $this->ask(
-            'What is the url of the current semester?'
-            . "\n" . "(Eg: http://comp.eng.ankara.edu.tr/lisans-egitimi/ders-sayfalari/)"
-        );
+        $lessons = Lesson::has('users')->get();
 
-        ScanSemester::dispatchNow($semesterLink);
-
+        foreach($lessons as $lesson)
+            ScanLessonPage::dispatchNow($lesson);
     }
 }
