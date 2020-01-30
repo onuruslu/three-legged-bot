@@ -14,3 +14,4 @@
 Route::get('/', function () {
     return view('welcome');
 });
+Route::post(env('TELEGRAM_BOT_WEBHOOK_URL_PATH'), 'WebHookController@trigger');
