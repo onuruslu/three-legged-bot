@@ -25,8 +25,8 @@ class ScanLesson implements ShouldQueue
      */
     public function __construct(eLevel $level, string $lessonLink)
     {
-        $this->lessonLink       = $lessonLink;
         $this->level            = $level;
+        $this->lessonLink       = getFullUrl($lessonLink, $this->level->link);
     }
 
     /**
