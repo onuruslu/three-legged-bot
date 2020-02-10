@@ -24,10 +24,15 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+        // update of announcements
         $schedule
             ->command('update:3legsbot-announcement')
             ->everyThirtyMinutes();
 
+        // update of lesson-pages
+        $schedule
+            ->command('update:3legsbot-lesson-pages')
+            ->cron('0 */6 * * *');
     }
 
     /**
