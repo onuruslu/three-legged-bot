@@ -15,3 +15,8 @@
 - [ ] Telegram Kullanıcıları
 	- [ ] Laravel
 	- [ ] Telegram (?)
+
+
+- [ ] ders sayfası veritabanına ilk defa eklendiğinde bildirim gitmesin
+- [ ] migration ondelete cascade
+- [ ] güncellenen duyurular için, duyurunun güncellendiğine dair ayrı bir mesaj eklensin
