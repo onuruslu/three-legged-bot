@@ -26,13 +26,13 @@ class RSSAnnouncement{
 			Announcement::updateOrCreate(
 				[
 					'remote_id'				=> $remote_id,
-					'remote_updated_at'		=> $item->getDateModified()->format('Y-m-d H:i:s'),
 				],
 				[
 					'title'					=> $item->getTitle(),
 					'text'					=> $item->getContent(),
 					'link'					=> $item->getPermalink(),
 					'remote_created_at'		=> $item->getDateCreated()->format('Y-m-d H:i:s'),
+					'remote_updated_at'		=> $item->getDateModified()->format('Y-m-d H:i:s'),
 				]
 			);
 			
