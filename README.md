@@ -20,3 +20,5 @@
 - [ ] ders sayfası veritabanına ilk defa eklendiğinde bildirim gitmesin
 - [ ] migration ondelete cascade
 - [ ] güncellenen duyurular için, duyurunun güncellendiğine dair ayrı bir mesaj eklensin
+- [ ] "/start" komutu verildiğinde "Merhaba Onur (@onuruslu)"daki  @'li kısım kullanıcı adı girmemiş olanlarda gelmiyor
+- [ ] ders sayfasının linki verildiğinde olan sayfalar tekrar taranmasın sadece yeniler eklensin
