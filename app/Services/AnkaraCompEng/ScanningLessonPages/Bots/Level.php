@@ -16,7 +16,12 @@ class Level extends Main {
 	public function scan(){
 		$this->cropBlocks($this->getActiveLink());
 
-		preg_match_all('~<a href=[`"\'](?\'link\'[^"\'`]+)(?<!\.[a-z]{3}|\.[a-z]{4})[`"\']>(?\'title\'.*(?\'code\'[a-zA-Z]{3}[0-9]{3}).*)</a>~sU', $this->contentSourceCode, $output);
+		preg_match_all('~<a href=[`"\'](?\'link\'[^"\'`]+)(?<!\.[a-z]{3}|\.[a-z]{4})[`"\']>(?\'title\'.*(?\'code\'[a-zA-Z]{3}\s*[0-9]{3}).*)</a>~sU', $this->contentSourceCode, $output);
+
+		$output['code'] = array_map(
+				function($lessonCode){ return preg_replace("~\s~s", '', $lessonCode); },
+				$output['code']
+			);
 
 		$this->links	= array_combine($output['code'], $output['link']);
 	}
