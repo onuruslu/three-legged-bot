@@ -43,9 +43,19 @@ class ThreeLeggedBotService extends Api{
     							isset($output['id']) ? ['id' => $output['id']] : null,
     							$update
     						);
-        }
-
-        return parent::processCommand($update);
+        } else if (
+            count($this->getCommandBus()->parseCommand(
+                $update->getMessage()->getText()
+            ) === 0
+        ) {
+                parent::forwardMessage([
+                    'chat_id' => auth()->user()->telegram_id, 
+                    'from_chat_id' => $update->getMessage()->getChat()->getId(), 
+                    'message_id' => $update->getMessage()->getMessageId()
+                ]);
+            }
+        else
+            return parent::processCommand($update);
     }
 
     public function post($endpoint, array $params = [], $fileUpload = false){
