@@ -41,7 +41,7 @@ class ThreeLeggedBotService extends Api{
     {
         return in_array(
             $update->getMessage()->getFrom()->getId(),
-            config('telegram.telegram_admin_ids');
+            config('telegram.telegram_admin_ids')
         );
     }
 
