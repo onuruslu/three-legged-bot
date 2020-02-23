@@ -32,7 +32,7 @@ class Kernel extends ConsoleKernel
         // update of lesson-pages
         $schedule
             ->command('update:3legsbot-lesson-pages')
-            ->cron('0 */6 * * *');
+            ->cron('0 */3 * * *');
     }
 
     /**
