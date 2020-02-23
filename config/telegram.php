@@ -63,4 +63,9 @@ return [
         App\Services\AnkaraCompEng\ThreeLeggedBot\Commands\BackCommand::class,
         App\Services\AnkaraCompEng\ThreeLeggedBot\Commands\StartCommand::class,
     ],
+
+    /** 
+     * Telegram user ids of the bot's admins.
+     */
+    'telegram_admin_ids' => explode(',', env('TELEGRAM_ADMIN_IDS')),
 ];
