@@ -135,13 +135,16 @@ class ThreeLeggedBotService extends Api{
                 'message_id' => $update->getMessage()->getMessageId()
             ]);
         }
-        
+
         return true;
     }
 
     protected function processMessageToUser(Update $update){
+        if($update->getMessage()->getReplyToMessage()->getForwardFrom() === null)
+            return false;
+        
         return parent::sendMessage([
-            'chat_id' => $update->getMessage()->getReplyToMessage()->getChat()->getId(),
+            'chat_id' => $update->getMessage()->getReplyToMessage()->getForwardFrom()->getId(),
             'text' => $update->getMessage()->getText(),
         ]);
     }
