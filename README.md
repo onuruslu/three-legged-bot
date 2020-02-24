@@ -23,3 +23,4 @@
 - [ ] "/start" komutu verildiğinde "Merhaba Onur (@onuruslu)"daki  @'li kısım kullanıcı adı girmemiş olanlarda gelmiyor
 - [ ] ders sayfasının linki verildiğinde olan sayfalar tekrar taranmasın sadece yeniler eklensin
 - [ ] ThreeLeggedBotService.php dosyası mesaj türünü algılayan ve mesajı işleyen 2 ayrı sınıfa parçalanmalı
+- [ ] birden fazla duyuru geldiğinde son duyurunun son mesajda gelmesi gerekli
