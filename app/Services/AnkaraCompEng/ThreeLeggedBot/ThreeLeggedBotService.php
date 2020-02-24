@@ -126,11 +126,17 @@ class ThreeLeggedBotService extends Api{
     }
 
     protected function processMessageToAdmin(Update $update){
-        return parent::forwardMessage([
-            'chat_id' => User::first()->telegram_id,
-            'from_chat_id' => $update->getMessage()->getChat()->getId(), 
-            'message_id' => $update->getMessage()->getMessageId()
-        ]);
+
+        foreach(config('telegram.telegram_admin_ids') as $adminId)
+        {
+            parent::forwardMessage([
+                'chat_id' => $adminId,
+                'from_chat_id' => $update->getMessage()->getChat()->getId(), 
+                'message_id' => $update->getMessage()->getMessageId()
+            ]);
+        }
+        
+        return true;
     }
 
     protected function processMessageToUser(Update $update){
