@@ -1,0 +1,1 @@
+<a href="tg://user?id={{ $telegram_id }}">{{ $telegram_username ? '@' . $telegram_username : $name }}</a> isimli kullanıcı ile etkileşim <i>#{{ $created_at }}</i> tarihinde başladı.

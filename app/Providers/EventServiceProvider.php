@@ -9,9 +9,11 @@ use Illuminate\Support\Facades\Event;
 use App\Events\AnkaraCompEng\AnnouncementCreated;
 use App\Events\AnkaraCompEng\AnnouncementUpdated;
 use App\Events\AnkaraCompEng\LessonPageCreated;
+use App\Events\AnkaraCompEng\TelegramUserCreated;
 use App\Listeners\Telegram\AnkaraCompEng\SendAnnouncementCreatedMessage;
 use App\Listeners\Telegram\AnkaraCompEng\SendAnnouncementUpdatedMessage;
 use App\Listeners\Telegram\AnkaraCompEng\SendLessonPageChangedMessage;
+use App\Listeners\Telegram\AnkaraCompEng\SendNewTelegramUserNotificationToAdmins;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -32,6 +34,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         LessonPageCreated::class => [
             SendLessonPageChangedMessage::class,
+        ],
+        TelegramUserCreated::class => [
+            SendNewTelegramUserNotificationToAdmins::class,
         ],
     ];
 

@@ -6,6 +6,7 @@ use Telegram;
 use Telegram\Bot\Objects\User as TelegramUser;
 use App\Announcement;
 use App\User;
+use App\Events\AnkaraCompEng\TelegramUserCreated;
 use App\Transformers\AnnouncementTransformer;
 use App\Transformers\LessonPageTransformer;
 use App\Services\AnkaraCompEng\ScanningLessonPages\Entities\LessonPage;
@@ -84,16 +85,27 @@ class ThreeLeggedBotFacade{
         $name = $telegramUser->getFirstName();
         $name .= ($telegramUser->getLastName() != null ? $telegramUser->getLastName() : '');
 
-        $user = User::updateOrCreate(
-            [
-                'telegram_id' => $telegramUser->getId(),
-            ],
-            [
+        $user = User::where('telegram_id', $telegramUser->getId())->first();
+
+        if($user) {
+            $user->update([
                 'name' => $name,
                 'password' => $telegramUser->getId(),
                 'telegram_username' => $telegramUser->getUsername(),
                 'telegram_language_code' => $telegramUser->getLanguageCode(),
             ]);
+        }
+        else {
+            $user = User::create([
+                    'telegram_id' => $telegramUser->getId(),
+                    'name' => $name,
+                    'password' => $telegramUser->getId(),
+                    'telegram_username' => $telegramUser->getUsername(),
+                    'telegram_language_code' => $telegramUser->getLanguageCode(),
+                ]);
+
+            event(new TelegramUserCreated($user));
+        }
 
         return $user;
     }
