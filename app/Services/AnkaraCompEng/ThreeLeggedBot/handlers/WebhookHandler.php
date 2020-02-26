@@ -5,6 +5,8 @@ namespace App\Services\AnkaraCompEng\ThreeLeggedBot\Handlers;
 use Illuminate\Http\Request;
 use Telegram\Bot\Api;
 use App\Services\AnkaraCompEng\ThreeLeggedBot\Utils\CommonUtils;
+use App\Services\AnkaraCompEng\ThreeLeggedBot\Objects\UpdateCallback;
+use App\Services\AnkaraCompEng\ThreeLeggedBot\Objects\UpdateMessageToUser;
 
 class WebhookHandler extends Api
 {
@@ -72,10 +74,10 @@ class WebhookHandler extends Api
 		$body = json_decode(file_get_contents('php://input'), true);
 
 		if($this->isCallback($body)) {
-			;
+			$update		= new UpdateCallback($body);
 		}
 		else if($this->shouldItSendToUser($body)) {
-			;
+			$update		= new UpdateMessageToUser($body);
 		}
 		else if($this->shouldItSendToAdmin($body)) {
 			;
