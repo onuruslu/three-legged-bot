@@ -4,8 +4,9 @@ namespace App\Services\AnkaraCompEng\ThreeLeggedBot\Objects;
 
 use Telegram\Bot\Objects\Update;
 use App\Facades\ThreeLeggedBotFacade;
+use App\Services\AnkaraCompEng\ThreeLeggedBot\Contracts\HandleableUpdate;
 
-class UpdateMessageToAdmin extends Update
+class UpdateMessageToAdmin extends Update implements HandleableUpdate
 {
 	public function handle() {
 

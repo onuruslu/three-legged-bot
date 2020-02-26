@@ -24,3 +24,5 @@
 - [ ] ders sayfasının linki verildiğinde olan sayfalar tekrar taranmasın sadece yeniler eklensin
 - [ ] ThreeLeggedBotService.php dosyası mesaj türünü algılayan ve mesajı işleyen 2 ayrı sınıfa parçalanmalı
 - [ ] birden fazla duyuru geldiğinde son duyurunun son mesajda gelmesi gerekli
+- [ ] App\Facades\ThreeLeggedBotFacade, servis klasörüne alınmalı (?)
+- [ ] App\Events ve App\Listeners klasörünün içindeki dosyalar, servis klasörünün içine alınmalı (?)
