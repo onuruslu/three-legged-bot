@@ -33,6 +33,14 @@ class ThreeLeggedBotFacade{
         self::sendMessage($chatId, $message);
     }
 
+    public static function forwardMessage($chatId, $sourceChatId, $messageId){
+        return Telegram::forwardMessage([
+            'chat_id'       => $chatId, 
+            'from_chat_id'  => $sourceChatId, 
+            'message_id'    => $messageId
+        ]);
+    }
+
     public static function sendMessage($chatId, $message){
         $messages           = self::splitMessage($message);
         
