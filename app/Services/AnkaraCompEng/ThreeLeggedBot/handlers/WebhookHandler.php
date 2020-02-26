@@ -7,6 +7,7 @@ use Telegram\Bot\Api;
 use App\Services\AnkaraCompEng\ThreeLeggedBot\Utils\CommonUtils;
 use App\Services\AnkaraCompEng\ThreeLeggedBot\Objects\UpdateCallback;
 use App\Services\AnkaraCompEng\ThreeLeggedBot\Objects\UpdateMessageToUser;
+use App\Services\AnkaraCompEng\ThreeLeggedBot\Objects\UpdateMessageToAdmin;
 
 class WebhookHandler extends Api
 {
@@ -80,7 +81,7 @@ class WebhookHandler extends Api
 			$update		= new UpdateMessageToUser($body);
 		}
 		else if($this->shouldItSendToAdmin($body)) {
-			;
+			$update		= new UpdateMessageToAdmin($body);
 		}
 		else {
 			return parent::processCommand($update);
