@@ -18,7 +18,7 @@
 
 
 - [ ] ders sayfası veritabanına ilk defa eklendiğinde bildirim gitmesin
-- [ ] migration ondelete cascade
+- [x] migration ondelete cascade
 - [ ] güncellenen duyurular için, duyurunun güncellendiğine dair ayrı bir mesaj eklensin
 - [ ] "/start" komutu verildiğinde "Merhaba Onur (@onuruslu)"daki  @'li kısım kullanıcı adı girmemiş olanlarda gelmiyor
 - [ ] ders sayfasının linki verildiğinde olan sayfalar tekrar taranmasın sadece yeniler eklensin
@@ -26,3 +26,4 @@
 - [ ] birden fazla duyuru geldiğinde son duyurunun son mesajda gelmesi gerekli
 - [ ] App\Facades\ThreeLeggedBotFacade, servis klasörüne alınmalı (?)
 - [ ] App\Events ve App\Listeners klasörünün içindeki dosyalar, servis klasörünün içine alınmalı (?)
+- [ ] Callbackler command'lardan ayrılmalı
