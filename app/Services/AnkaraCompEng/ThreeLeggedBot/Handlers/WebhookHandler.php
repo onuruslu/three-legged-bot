@@ -8,6 +8,7 @@ use App\Services\AnkaraCompEng\ThreeLeggedBot\Utils\CommonUtils;
 use App\Services\AnkaraCompEng\ThreeLeggedBot\Objects\UpdateCallback;
 use App\Services\AnkaraCompEng\ThreeLeggedBot\Objects\UpdateMessageToUser;
 use App\Services\AnkaraCompEng\ThreeLeggedBot\Objects\UpdateMessageToAdmin;
+use App\Services\AnkaraCompEng\ThreeLeggedBot\Objects\Update;
 
 class WebhookHandler extends Api
 {
@@ -84,10 +85,10 @@ class WebhookHandler extends Api
 			$update		= new UpdateMessageToAdmin($body);
 		}
 		else {
-			return parent::processCommand($update);
+			$update		= new Update($body);
 		}
 
-		return new Update($body);
+		return $update->handle();
 	}
 
 ?>
