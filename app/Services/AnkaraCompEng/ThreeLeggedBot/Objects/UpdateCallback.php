@@ -4,6 +4,7 @@ namespace App\Services\AnkaraCompEng\ThreeLeggedBot\Objects;
 
 use Telegram\Bot\Objects\Update;
 use App\Services\AnkaraCompEng\ThreeLeggedBot\Contracts\HandleableUpdate;
+use Exception;
 
 class UpdateCallback extends Update implements HandleableUpdate
 {
