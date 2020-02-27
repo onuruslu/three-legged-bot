@@ -4,6 +4,7 @@ namespace App\Services\AnkaraCompEng\ThreeLeggedBot\Handlers;
 
 use Illuminate\Http\Request;
 use Telegram\Bot\Api;
+use Telegram\Bot\Objects\Update as RootUpdate;
 use App\Services\AnkaraCompEng\ThreeLeggedBot\Utils\CommonUtils;
 use App\Services\AnkaraCompEng\ThreeLeggedBot\Objects\UpdateCallback;
 use App\Services\AnkaraCompEng\ThreeLeggedBot\Objects\UpdateMessageToUser;
@@ -93,7 +94,7 @@ class WebhookHandler extends Api
 		return $update;
 	}
 
-	public function handleCommand(Update $update)
+	public static function handleCommand(RootUpdate $update)
 	{
 		return parent::processCommand($update);
 	}
