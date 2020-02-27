@@ -35,7 +35,7 @@
     },
     "autoload": {
         "files": [
-            "app/Services/AnkaraCompEng/ThreeLeggedBot/app/helpers.php",
+            "app/Services/AnkaraCompEng/ThreeLeggedBot/App/helpers.php",
             "app/Http/helpers.php"
         ],
         "psr-4": {
