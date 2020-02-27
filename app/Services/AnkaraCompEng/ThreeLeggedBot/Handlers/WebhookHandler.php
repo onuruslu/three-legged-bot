@@ -93,7 +93,7 @@ class WebhookHandler extends Api
 		return $update;
 	}
 
-	public function processCommand(Update $update)
+	public function handleCommand(Update $update)
 	{
 		return parent::processCommand($update);
 	}

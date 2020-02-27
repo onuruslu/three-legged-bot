@@ -9,6 +9,6 @@ use App\Services\AnkaraCompEng\ThreeLeggedBot\Contracts\HandleableUpdate;
 class Update extends RootUpdate implements HandleableUpdate
 {
 	public function handle() {
-		return WebhookHandler::processCommand($this);
+		return WebhookHandler::handleCommand($this);
 	}
 }
