@@ -9,7 +9,7 @@ class UpdateCallback extends Update implements HandleableUpdate
 {
 	protected $callbackData;
 
-	public function __construct(string $body) {
+	public function __construct(Update $body) {
 		parent::__construct($body);
 
 		$this->parseCallback();
