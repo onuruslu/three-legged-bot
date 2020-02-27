@@ -3,7 +3,7 @@
 namespace App\Services\AnkaraCompEng\ThreeLeggedBot\Utils;
 
 class CommonUtils{
-	protected static function array_multi_key_exists($arrNeedles, $arrHaystack)
+	public static function array_multi_key_exists($arrNeedles, $arrHaystack)
 	{
 		$needle = array_shift($arrNeedles);
 
