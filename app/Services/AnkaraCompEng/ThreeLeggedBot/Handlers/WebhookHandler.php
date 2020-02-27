@@ -75,6 +75,8 @@ class WebhookHandler extends Api
 	{
 		$body = json_decode(file_get_contents('php://input'), true);
 
+    	logger(json_encode($body));
+
 		if($this->isCallback($body)) {
 			$update		= new UpdateCallback($body);
 		}
@@ -88,7 +90,7 @@ class WebhookHandler extends Api
 			$update		= new Update($body);
 		}
 
-		return $update->handle();
+		return $update;
 	}
 
 ?>
