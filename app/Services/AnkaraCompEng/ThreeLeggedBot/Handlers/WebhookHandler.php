@@ -92,5 +92,6 @@ class WebhookHandler extends Api
 
 		return $update;
 	}
+}
 
 ?>
