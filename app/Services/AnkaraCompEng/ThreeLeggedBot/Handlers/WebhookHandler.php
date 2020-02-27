@@ -94,9 +94,9 @@ class WebhookHandler extends Api
 		return $update;
 	}
 
-	public static function handleCommand(RootUpdate $update)
+	public function handleCommand(RootUpdate $update)
 	{
-		return parent::processCommand($update);
+		return $this->processCommand($update);
 	}
 }
 
