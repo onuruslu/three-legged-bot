@@ -4,6 +4,7 @@ namespace App\Services\AnkaraCompEng\ThreeLeggedBot\Objects;
 
 use Telegram\Bot\Objects\Update;
 use App\Services\AnkaraCompEng\ThreeLeggedBot\Contracts\HandleableUpdate;
+use App\Services\AnkaraCompEng\ThreeLeggedBot\Handlers\WebhookHandler;
 use Exception;
 
 class UpdateCallback extends Update implements HandleableUpdate
@@ -17,14 +18,14 @@ class UpdateCallback extends Update implements HandleableUpdate
 	}
 
 	public function handle() {
-		$id		= $this->callbackData['id'];
+		$id		= $this->callbackData['id'] ?? null;
 		$type	= $this->callbackData['type'];
 		$params = null;
 
 		if(!empty($id))
 			$params	= ['id' => $id];
 
-        return $this->getCommandBus()
+        return app(WebhookHandler::class)->getCommandBus()
                     ->execute(
                         $type,
                         $params,
@@ -41,8 +42,12 @@ class UpdateCallback extends Update implements HandleableUpdate
             throw new Exception('incorrect format');
 
         if( !isset(
-        	$this->getCommands()[$this->callbackData['type']]
+        	app(WebhookHandler::class)->getCommands()[$this->callbackData['type']]
         ))
-            throw new Exception('callback command not found');
+            throw new Exception(
+                'callback command not found'
+                . json_encode(app(WebhookHandler::class)->getCommands())
+                . json_encode($this->callbackData)
+            );
 	}
 }

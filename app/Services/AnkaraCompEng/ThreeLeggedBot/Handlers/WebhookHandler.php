@@ -10,9 +10,19 @@ use App\Services\AnkaraCompEng\ThreeLeggedBot\Objects\UpdateCallback;
 use App\Services\AnkaraCompEng\ThreeLeggedBot\Objects\UpdateMessageToUser;
 use App\Services\AnkaraCompEng\ThreeLeggedBot\Objects\UpdateMessageToAdmin;
 use App\Services\AnkaraCompEng\ThreeLeggedBot\Objects\Update;
+use App\User;
+use App\Facades\ThreeLeggedBotFacade;
 
 class WebhookHandler extends Api
 {
+    public function __construct()
+    {
+        parent::__construct();
+
+        foreach(config('telegram.commands') as $command)
+            $this->addCommand($command);
+    }
+
 	protected function isCallback(array $body)
 	{
 		return array_key_exists('callback_query', $body);
@@ -65,12 +75,26 @@ class WebhookHandler extends Api
 
 	public function shouldItSendToAdmin(array $body)
 	{
-		if( !$this->shouldItSendToUser($body) )
-			return false;
-
         if( !$this->isChatMessage($body) )
             return false;
+
+        return true;
 	}
+
+    protected static function login(RootUpdate $update)
+    {
+        if($update->getMessage())
+            $telegramUser = $update->getMessage()->getFrom();
+        else if($update->getCallbackQuery())
+            $telegramUser = $update->getCallbackQuery()->getFrom();
+
+        $user = User::where('telegram_id', $telegramUser->getId())->first();
+
+        if( !$user )
+            $user = ThreeLeggedBotFacade::createOrUpdateUser($telegramUser);
+        
+        \Auth::login($user);
+    }
 
 	public function getWebhookUpdates()
 	{
@@ -90,6 +114,8 @@ class WebhookHandler extends Api
 		else {
 			$update		= new Update($body);
 		}
+
+		self::login($update);
 
 		return $update;
 	}

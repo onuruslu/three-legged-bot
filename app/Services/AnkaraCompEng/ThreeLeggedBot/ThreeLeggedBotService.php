@@ -95,6 +95,7 @@ class ThreeLeggedBotService extends Api{
         return parent::post($endpoint, $params, $fileUpload);
     }
 
+    // TODO: this and WebhookHandler::login(...) should be merged
     protected static function login(Update $update)
     {
         if($update->getMessage())

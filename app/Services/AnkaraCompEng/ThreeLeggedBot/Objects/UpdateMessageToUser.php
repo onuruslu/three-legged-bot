@@ -13,8 +13,8 @@ class UpdateMessageToUser extends Update implements HandleableUpdate
             return false;
         
         return ThreeLeggedBotFacade::sendMessage([
-            'chat_id' => $this->getMessage()->getReplyToMessage()->getForwardFrom()->getId(),
-            'text' => $this->getMessage()->getText(),
+            $this->getMessage()->getReplyToMessage()->getForwardFrom()->getId(),
+            $this->getMessage()->getText(),
         ]);
 	}
 }
