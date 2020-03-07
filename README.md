@@ -27,3 +27,5 @@
 - [ ] App\Facades\ThreeLeggedBotFacade, servis klasörüne alınmalı (?)
 - [ ] App\Events ve App\Listeners klasörünün içindeki dosyalar, servis klasörünün içine alınmalı (?)
 - [ ] Callbackler command'lardan ayrılmalı
+- [ ] Feature test yazılmalı
+- [ ] ThreeLeggedBotService::login(...) ve WebhookHandler::login(...) birleştirilmeli
