@@ -60,7 +60,6 @@ return [
         App\Services\AnkaraCompEng\ThreeLeggedBot\Commands\ClassesMenuCommand::class,
         App\Services\AnkaraCompEng\ThreeLeggedBot\Commands\LessonsMenuCommand::class,
         App\Services\AnkaraCompEng\ThreeLeggedBot\Commands\SelectLessonCommand::class,
-        App\Services\AnkaraCompEng\ThreeLeggedBot\Commands\BackCommand::class,
         App\Services\AnkaraCompEng\ThreeLeggedBot\Commands\StartCommand::class,
     ],
 
