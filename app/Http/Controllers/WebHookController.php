@@ -7,9 +7,9 @@ use App\Services\AnkaraCompEng\ThreeLeggedBot\Handlers\WebhookHandler;
 
 class WebHookController extends Controller
 {
-    public function trigger()
+    public function trigger(Request $r)
     {
-    	$update		= app(WebhookHandler::class)->getWebhookUpdates();
+    	$update		= app(WebhookHandler::class)->getWebhookUpdates($r->getContent());
 
     	$update->handle();
 

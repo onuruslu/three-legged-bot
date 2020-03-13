@@ -90,15 +90,19 @@ class WebhookHandler extends Api
 
         $user = User::where('telegram_id', $telegramUser->getId())->first();
 
-        if( !$user )
+        if( !$user ){
             $user = ThreeLeggedBotFacade::createOrUpdateUser($telegramUser);
+        }
         
         \Auth::login($user);
     }
 
-	public function getWebhookUpdates()
+	public function getWebhookUpdates(string $rawPost = null)
 	{
-		$body = json_decode(file_get_contents('php://input'), true);
+		if(empty($rawPost))
+			$rawPost	= file_get_contents('php://input');
+
+		$body = json_decode($rawPost, true);
 
     	logger(json_encode($body));
 
