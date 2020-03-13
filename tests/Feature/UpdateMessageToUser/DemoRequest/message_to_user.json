@@ -1,0 +1,46 @@
+{
+    "update_id": {{update_id|numberBetween(1)}},
+    "message": {
+        "message_id": {{message_id|numberBetween(1)}},
+        "from": {
+            "id": {{source_chat_id|numberBetween(1)}},
+            "is_bot": false,
+            "first_name": "{{source_first_name|firstName}}",
+            "username": "{{source_username|username}}",
+            "language_code": "tr"
+        },
+        "chat": {
+            "id": {{target_chat_id|numberBetween(1)}},
+            "first_name": "{{target_first_name|firstName}}",
+            "username": "{{target_username|username}}",
+            "type": "private"
+        },
+        "date": {{message_date|unixTime}},
+        "reply_to_message": {
+            "message_id": {{reply_to_message_message_id|numberBetween(1)}},
+            "from": {
+                "id": 921552151,
+                "is_bot": true,
+                "first_name": "threeLeggedBot",
+                "username": "threeLeggedBot"
+            },
+            "chat": {
+                "id": {{reply_to_message_chat_id|numberBetween(1)}},
+                "first_name": "{{reply_to_message_first_name|firstName}}",
+                "username": "{{reply_to_message_username|userName}}",
+                "type": "private"
+            },
+            "date": {{reply_date|unixTime}},
+            "forward_from": {
+                "id": {{reply_to_message_chat_id}},
+                "is_bot": false,
+                "first_name": "{{reply_to_message_first_name|firstName}}",
+                "username": "{{reply_to_message_username|userName}}",
+                "language_code": "tr"
+            },
+            "forward_date": {{forward_date|unixTime}},
+            "text": "{{reply_to_message_text|text}}"
+        },
+        "text": "{{message_text|text}}"
+    }
+}
