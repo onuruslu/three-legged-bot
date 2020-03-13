@@ -1,0 +1,21 @@
+{
+    "update_id": {{update_id|numberBetween(1)}},
+    "message": {
+        "message_id": {{message_id|numberBetween(1)}},
+        "from": {
+            "id": {{source_chat_id|numberBetween(1)}},
+            "is_bot": false,
+            "first_name": "{{source_first_name|firstName}}",
+            "username": "{{source_username|username}}",
+            "language_code": "tr"
+        },
+        "chat": {
+            "id": {{target_chat_id|numberBetween(1)}},
+            "first_name": "{{target_first_name|firstName}}",
+            "username": "{{target_username|username}}",
+            "type": "private"
+        },
+        "date": {{message_date|unixTime}},
+        "text": "{{message_text|text}}"
+    }
+}
