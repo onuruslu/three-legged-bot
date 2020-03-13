@@ -1,0 +1,97 @@
+{
+    "update_id": {{update_id|numberBetween(1)}},
+    "callback_query": {
+        "chat_instance": "{{chat_instance|numberBetween(1)}}",
+        "id": "{{callback_id|numberBetween(1)}}",
+        "from": {
+            "id": "{{source_user_id|numberBetween(1)}}",
+            "is_bot": false,
+            "first_name": "{{source_first_name|firstName}}",
+            "username": "{{source_username|userName}}",
+            "language_code": "tr"
+        },
+        "message": {
+            "message_id": {{message_id|numberBetween(1)}},
+            "from": {
+                "id": 921552151,
+                "is_bot": true,
+                "first_name": "threeLeggedBot",
+                "username": "threeLeggedBot"
+            },
+            "chat": {
+                "id": "{{target_user_id|numberBetween(1)}}",
+                "first_name": "{{target_first_name|firstName}}",
+                "username": "{{target_username|userName}}",
+                "type": "private"
+            },
+            "date": {{message_date|unixTime}},
+            "edit_date": {{edit_date|unixTime}},
+            "text": "Ders aldığınız sınıfı seçin",
+            "reply_markup": {
+                "inline_keyboard": [
+                    [
+                        {
+                            "text": "[ ] COM/BLM426 Bilgi Güvenliği (Information Security)",
+                            "callback_data": "selectLesson#8"
+                        }
+                    ],
+                    [
+                        {
+                            "text": "[ ] COM/BLM436 Fuzzy Logic – Bulanık Mantık",
+                            "callback_data": "selectLesson#9"
+                        }
+                    ],
+                    [
+                        {
+                            "text": "[✓] COM/BLM444 Special Topics (Özel Konular)",
+                            "callback_data": "selectLesson#0"
+                        }
+                    ],
+                    [
+                        {
+                            "text": "[ ] COM/BLM466 Digital Image Processing",
+                            "callback_data": "selectLesson#1"
+                        }
+                    ],
+                    [
+                        {
+                            "text": "[✓] BLM/COM478 İş Sağlığı ve Güvenliği II",
+                            "callback_data": "selectLesson#2"
+                        }
+                    ],
+                    [
+                        {
+                            "text": "[ ] COM448 Pattern Recognition",
+                            "callback_data": "selectLesson#3"
+                        }
+                    ],
+                    [
+                        {
+                            "text": "[ ] COM470 Embedded Systems",
+                            "callback_data": "selectLesson#4"
+                        }
+                    ],
+                    [
+                        {
+                            "text": "[✓] COM 412 IT and Security Governance",
+                            "callback_data": "selectLesson#5"
+                        }
+                    ],
+                    [
+                        {
+                            "text": "[ ] COM476 Expert Systems",
+                            "callback_data": "selectLesson#6"
+                        }
+                    ],
+                    [
+                        {
+                            "text": "Geri",
+                            "callback_data": "classes"
+                        }
+                    ]
+                ]
+            }
+        },
+        "data": "classes"
+    }
+}
