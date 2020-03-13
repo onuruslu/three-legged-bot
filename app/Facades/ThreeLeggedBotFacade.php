@@ -91,7 +91,7 @@ class ThreeLeggedBotFacade{
     public static function createOrUpdateUser(TelegramUser $telegramUser) : User
     {
         $name = $telegramUser->getFirstName();
-        $name .= ($telegramUser->getLastName() != null ? $telegramUser->getLastName() : '');
+        $name .= ($telegramUser->getLastName() != null ? ' ' . $telegramUser->getLastName() : '');
 
         $user = User::where('telegram_id', $telegramUser->getId())->first();
 
