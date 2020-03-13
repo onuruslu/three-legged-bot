@@ -3,22 +3,22 @@
 namespace Tests\Feature\UpdateCallback;
 
 use Tests\Feature\FeatureTestCase;
-use App\Services\AnkaraCompEng\ThreeLeggedBot\Callbacks\SelectLessonCallback;
+use App\Services\AnkaraCompEng\ThreeLeggedBot\Callbacks\ClassesCallback;
 use Tests\Feature\DemoFile;
 use App\Facades\ThreeLeggedBotFacade;
 use App\User;
 
-class SelectLessonTest extends FeatureTestCase
+class ListClassesTest extends FeatureTestCase
 {
-	CONST DEMO_FILE_PATH 			= [__DIR__, 'DemoRequest', 'select_lesson_callback.json'];
+	CONST DEMO_FILE_PATH 			= [__DIR__, 'DemoRequest', 'list_classes_callback.json'];
 
 	/**
-	 * Tests selecting a lesson from receiving the update
-	 * to using the SelectLessonCallback->handle() method
+	 * Tests listing of classes from receiving the update
+	 * to using the ClassesCallback()->handle() method
 	 *
 	 * @return void
 	 */
-	public function testSelectLessonFromReceivingUpdateToHandle() : void
+	public function testClassesMenuFromReceivingUpdateToHandle() : void
 	{
 		// message parsing
 		$demoFile	= new DemoFile(...self::DEMO_FILE_PATH);
@@ -38,22 +38,15 @@ class SelectLessonTest extends FeatureTestCase
 
 		$this->app->instance(ThreeLeggedBotFacade::class, $mockedThreeLeggedBotFacade);
 
-		// mocking SelectLessonCallback
-		$mockedSelectLessonCallback = $this->mock(SelectLessonCallback::class);
+		// mocking ClassesCallback
+		$mockedClassesCallback = $this->mock(ClassesCallback::class);
 
-		list($callbackCommand, $selectedLessonId)	= explode('#', $demoFile->properties->callback_argument);
-
-		$mockedSelectLessonCallback
+		$mockedClassesCallback
 			->shouldReceive('handle')
-			->withArgs(
-				function($id) use ($selectedLessonId) {
-					return $id === intval($selectedLessonId) && $id != 0;
-				}
-			)
 			->once();
 
-		$this->app->bind(SelectLessonCallback::class, function() use ($mockedSelectLessonCallback){
-			return $mockedSelectLessonCallback;
+		$this->app->bind(ClassesCallback::class, function() use ($mockedClassesCallback){
+			return $mockedClassesCallback;
 		});
 
 		// request control

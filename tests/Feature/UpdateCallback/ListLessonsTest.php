@@ -2,35 +2,23 @@
 
 namespace Tests\Feature\UpdateCallback;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\Feature\FeatureTestCase;
-use App\Services\AnkaraCompEng\ThreeLeggedBot\Commands\LessonsMenuCommand;
-use Telegram\Bot\Commands\CommandInterface;
+use App\Services\AnkaraCompEng\ThreeLeggedBot\Callbacks\LessonsCallback;
 use Tests\Feature\DemoFile;
 use App\Facades\ThreeLeggedBotFacade;
 use App\User;
 
-/**
- * @runTestsInSeparateProcesses
- * @preserveGlobalState disabled
- */
 class ListLessonsTest extends FeatureTestCase
 {
 	CONST DEMO_FILE_PATH 			= [__DIR__, 'DemoRequest', 'list_lessons_callback.json'];
 
-
-	public function tearDown() : void
-	{
-		\Mockery::close();
-	}
-
 	/**
-	 * Tests lessons menu from receiving the update to using
-	 * the WebhookHandler->getCommandBus()->execute() method
+	 * Tests listing lessons from receiving the update
+	 * to using the LessonsCallback()->handle() method
 	 *
 	 * @return void
 	 */
-	public function testLessonsMenuFromReceivingUpdateToExecute() : void
+	public function testLessonsMenuFromReceivingUpdateToHandle() : void
 	{
 		// message parsing
 		$demoFile	= new DemoFile(...self::DEMO_FILE_PATH);
@@ -50,27 +38,23 @@ class ListLessonsTest extends FeatureTestCase
 
 		$this->app->instance(ThreeLeggedBotFacade::class, $mockedThreeLeggedBotFacade);
 
-		// mocking LessonsMenuCommand
-		$mockedLessonsMenuCommand				= \Mockery::mock('overload:' . LessonsMenuCommand::class, CommandInterface::class);
-		$mockedLessonMenuCounter				= 0;
-		list($callbackCommand, $selectedYear)	= explode('#', $demoFile->properties->callback_argument);
+		// mocking LessonsCallback
+		$mockedLessonsCallback = $this->mock(LessonsCallback::class);
 
-		$mockedLessonsMenuCommand
-			->shouldReceive('getName')
-			->andReturn($callbackCommand)
-			->shouldReceive('make')
+		list($callbackCommand, $selectedYearId)	= explode('#', $demoFile->properties->callback_argument);
+
+		$mockedLessonsCallback
+			->shouldReceive('handle')
 			->withArgs(
-				function($arg1, $arg2, $arg3) use (&$mockedLessonMenuCounter, $selectedYear)
-				{
-					if($arg2['id'] == $selectedYear){
-						$mockedLessonMenuCounter++;
-
-						return true;
-					}
-
-					return false;
+				function($id) use ($selectedYearId) {
+					return $id === intval($selectedYearId) && $id != 0;
 				}
-			);
+			)
+			->once();
+
+		$this->app->bind(LessonsCallback::class, function() use ($mockedLessonsCallback){
+			return $mockedLessonsCallback;
+		});
 
 		// request control
 		$response = $this->sendUpdate($request);
@@ -78,7 +62,5 @@ class ListLessonsTest extends FeatureTestCase
 		$response->assertStatus(200);
 
 		$response->assertSeeText('ok');
-
-		$this->assertEquals(1, $mockedLessonMenuCounter);
 	}
 }
