@@ -45,9 +45,21 @@ class ListClassesTest extends FeatureTestCase
 			->shouldReceive('handle')
 			->once();
 
-		$this->app->bind(ClassesCallback::class, function() use ($mockedClassesCallback){
-			return $mockedClassesCallback;
-		});
+		$this->app->bind(
+			ClassesCallback::class,
+			function($app, $args) use ($mockedClassesCallback, $demoFile)
+			{
+				$chatId	= $args['update']->getCallbackQuery()->getMessage()->getChat()->getId();
+				$exceptedChatId	= $demoFile->properties->target_user_id;
+
+				$this->assertEquals(
+					$exceptedChatId,
+					$chatId
+				);
+				
+				return $mockedClassesCallback;
+			}
+		);
 
 		// request control
 		$response = $this->sendUpdate($request);

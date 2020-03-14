@@ -19,7 +19,7 @@
                 "username": "threeLeggedBot"
             },
             "chat": {
-                "id": "{{target_user_id|numberBetween(1)}}",
+                "id": {{target_user_id|numberBetween(1)}},
                 "first_name": "{{target_first_name|firstName}}",
                 "username": "{{target_username|userName}}",
                 "type": "private"

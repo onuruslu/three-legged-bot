@@ -52,9 +52,21 @@ class ListLessonsTest extends FeatureTestCase
 			)
 			->once();
 
-		$this->app->bind(LessonsCallback::class, function() use ($mockedLessonsCallback){
-			return $mockedLessonsCallback;
-		});
+		$this->app->bind(
+			LessonsCallback::class,
+			function($app, $args) use ($mockedLessonsCallback, $demoFile)
+			{
+				$chatId	= $args['update']->getCallbackQuery()->getMessage()->getChat()->getId();
+				$exceptedChatId	= $demoFile->properties->target_user_id;
+
+				$this->assertEquals(
+					$exceptedChatId,
+					$chatId
+				);
+				
+				return $mockedLessonsCallback;
+			}
+		);
 
 		// request control
 		$response = $this->sendUpdate($request);
