@@ -26,6 +26,6 @@
 - [ ] birden fazla duyuru geldiğinde son duyurunun son mesajda gelmesi gerekli
 - [ ] App\Facades\ThreeLeggedBotFacade, servis klasörüne alınmalı (?)
 - [ ] App\Events ve App\Listeners klasörünün içindeki dosyalar, servis klasörünün içine alınmalı (?)
-- [ ] Callbackler command'lardan ayrılmalı
-- [ ] Feature test yazılmalı
+- [x] Callbackler command'lardan ayrılmalı
+- [x] Feature test yazılmalı
 - [ ] ThreeLeggedBotService::login(...) ve WebhookHandler::login(...) birleştirilmeli
