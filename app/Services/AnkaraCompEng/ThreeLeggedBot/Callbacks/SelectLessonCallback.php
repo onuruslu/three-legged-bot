@@ -37,8 +37,8 @@ class SelectLessonCallback
         ]);
 
         $response = app(ThreeLeggedBotService::class)->post('editMessageReplyMarkup', [
-            'chat_id' => $this->getUpdate()->getCallbackQuery()->getMessage()->getChat()->getId(),
-            'message_id' => $this->getUpdate()->getCallbackQuery()->getMessage()->getMessageId(),
+            'chat_id' => $this->update->getCallbackQuery()->getMessage()->getChat()->getId(),
+            'message_id' => $this->update->getCallbackQuery()->getMessage()->getMessageId(),
             'reply_markup' => $reply_markup
         ]);
 
