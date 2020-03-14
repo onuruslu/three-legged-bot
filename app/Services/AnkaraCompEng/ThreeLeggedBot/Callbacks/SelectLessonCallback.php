@@ -2,13 +2,14 @@
 
 namespace App\Services\AnkaraCompEng\ThreeLeggedBot\Callbacks;
 
+use App\Services\AnkaraCompEng\ThreeLeggedBot\Contracts\Callback;
 use App\Services\AnkaraCompEng\ScanningLessonPages\Entities\Lesson;
 use App\Services\AnkaraCompEng\ThreeLeggedBot\ThreeLeggedBotService;
 use App\Transformers\KeyboardTransformer;
 use App\Services\AnkaraCompEng\ThreeLeggedBot\Objects\UpdateCallback;
 use Exception;
 
-class SelectLessonCallback
+class SelectLessonCallback implements Callback
 {
     /** @var UpdateCallback $update */
     protected $update;
