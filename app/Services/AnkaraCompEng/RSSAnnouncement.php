@@ -15,7 +15,10 @@ class RSSAnnouncement{
 
 	public function storeAnnouncements(Rss $channel)
 	{
-		foreach($channel as $item){
+		// if there are two announcements, send older one first
+		$reverseChannel = array_reverse(iterator_to_array($channel));
+
+		foreach($reverseChannel as $item){
 			list($remote_id)  = sscanf($item->getXpath()->evaluate(
               'string('
               . $item->getXpathPrefix()
