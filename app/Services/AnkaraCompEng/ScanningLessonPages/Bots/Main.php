@@ -6,9 +6,6 @@ use App\Services\AnkaraCompEng\ScanningLessonPages\Ayca;
 use Illuminate\Support\Facades\Cache;
 
 class Main {
-	CONST LOGIN_PAGE_URL	= 'http://comp.eng.ankara.edu.tr/wp-login.php?action=postpass';
-	CONST LOGIN_PASSWORD	= '**PASSWORD**';
-
 	public $sourceCode;
 	public $client;
 	public $pageTitle;
@@ -59,14 +56,14 @@ class Main {
 
 	public function login($link){
 		$response			= $this->client->post(
-			self::LOGIN_PAGE_URL,
+			config('ankara.compeng.login_page_url'),
 			[
 				#'allow_redirects' => false,
 				'headers' => [
 					'Referer'	=> $link
 				],
 				'form_params' => [
-					'post_password' => self::LOGIN_PASSWORD,
+					'post_password' => config('ankara.compeng.login_password'),
 					'Submit'		=> 'Giriş'
 				]
 			]
