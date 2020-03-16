@@ -1,8 +1,7 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Unit\App\Services\AnkaraCompEng\ThreeLeggedBot\Commands;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\Unit\UnitTestCase;
 use App\Services\AnkaraCompEng\ThreeLeggedBot\Callbacks\ClassesCallback;
 use App\Services\AnkaraCompEng\ThreeLeggedBot\ThreeLeggedBotService;
@@ -13,10 +12,10 @@ use App\User;
 
 class StartCommandTest extends UnitTestCase
 {
-    /**
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
-     */
+	/**
+	 * @runInSeparateProcess
+	 * @preserveGlobalState disabled
+	 */
 	public function testStartCommand() : void
 	{
 		// message parsing
@@ -36,7 +35,7 @@ class StartCommandTest extends UnitTestCase
 		$fakeUser->telegram_id			= $demoFile->properties->source_chat_id;
 		$fakeUser->telegram_username	= $demoFile->properties->source_username;
 
-        // mocking ThreeLeggedBotFacade
+		// mocking ThreeLeggedBotFacade
 		$mockedThreeLeggedBotFacade = $this->mock(ThreeLeggedBotFacade::class)->makePartial();
 
 		$mockedThreeLeggedBotFacade
@@ -76,11 +75,11 @@ class StartCommandTest extends UnitTestCase
 		$update			= new Update($requestArray);
 		$this->actingAs($fakeUser);
 
-        $api			= app(ThreeLeggedBotService::class)
-        					->getCommandBus()
-        					->handler(
-        						$update->getMessage()->getText(),
-        						$update
-        					);
+		$api			= app(ThreeLeggedBotService::class)
+							->getCommandBus()
+							->handler(
+								$update->getMessage()->getText(),
+								$update
+							);
 	}
 }

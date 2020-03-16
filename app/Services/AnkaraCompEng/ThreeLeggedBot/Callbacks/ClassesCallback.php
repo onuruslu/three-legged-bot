@@ -6,14 +6,14 @@ use App\Services\AnkaraCompEng\ThreeLeggedBot\Contracts\Callback;
 use App\Services\AnkaraCompEng\ScanningLessonPages\Entities\Level;
 use App\Services\AnkaraCompEng\ThreeLeggedBot\ThreeLeggedBotService;
 use App\Transformers\KeyboardTransformer;
-use App\Services\AnkaraCompEng\ThreeLeggedBot\Objects\UpdateCallback;
+use Telegram\Bot\Objects\Update as RootUpdate;
 
 class ClassesCallback implements Callback
 {
-    /** @var UpdateCallback $update */
+    /** @var RootUpdate $update */
     protected $update;
 
-    public function __construct(UpdateCallback $update)
+    public function __construct(RootUpdate $update)
     {
         $this->update       = $update;
     }
