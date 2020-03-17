@@ -10,12 +10,12 @@ use App\Facades\ThreeLeggedBotFacade;
 use Tests\Feature\DemoFile;
 use App\User;
 
+/**
+ * @runTestsInSeparateProcesses
+ * @preserveGlobalState disabled
+ */
 class StartCommandTest extends UnitTestCase
 {
-	/**
-	 * @runInSeparateProcess
-	 * @preserveGlobalState disabled
-	 */
 	public function testStartCommand() : void
 	{
 		// message parsing

@@ -8,6 +8,10 @@ use Tests\Feature\DemoFile;
 use Illuminate\Foundation\Testing\WithFaker;
 use App\User;
 
+/**
+ * @runTestsInSeparateProcesses
+ * @preserveGlobalState disabled
+ */
 class UpdateMessageToAdminTest extends FeatureTestCase
 {
 	use WithFaker;

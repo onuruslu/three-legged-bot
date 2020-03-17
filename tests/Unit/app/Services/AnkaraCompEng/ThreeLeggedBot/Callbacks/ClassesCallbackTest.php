@@ -7,6 +7,10 @@ use App\Services\AnkaraCompEng\ThreeLeggedBot\Callbacks\ClassesCallback;
 use Telegram\Bot\Objects\Update as RootUpdate;
 use Tests\Feature\DemoFile;
 
+/**
+ * @runTestsInSeparateProcesses
+ * @preserveGlobalState disabled
+ */
 class ClassesCallbackTest extends UnitTestCase
 {
 

@@ -8,6 +8,10 @@ use Tests\Feature\DemoFile;
 use App\Facades\ThreeLeggedBotFacade;
 use App\User;
 
+/**
+ * @runTestsInSeparateProcesses
+ * @preserveGlobalState disabled
+ */
 class ListLessonsTest extends FeatureTestCase
 {
 	CONST DEMO_FILE_PATH 			= [__DIR__, 'DemoRequest', 'list_lessons_callback.json'];

@@ -9,6 +9,10 @@ use App\Services\AnkaraCompEng\ThreeLeggedBot\Objects\Update;
 use Tests\Feature\DemoFile;
 use App\User;
 
+/**
+ * @runTestsInSeparateProcesses
+ * @preserveGlobalState disabled
+ */
 class UpdateTest extends FeatureTestCase
 {
 	CONST DEMO_FILE_PATH	= [__DIR__, 'DemoRequest', 'start_command.json'];
