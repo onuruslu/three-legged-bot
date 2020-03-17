@@ -7,6 +7,7 @@ use Tests\Feature\FeatureTestCase;
 use Tests\Feature\DemoFile;
 use Illuminate\Foundation\Testing\WithFaker;
 use App\User;
+use Telegram\Bot\Objects\User as TelegramUser;
 
 /**
  * @runTestsInSeparateProcesses
@@ -48,6 +49,12 @@ class UpdateMessageToUserTest extends FeatureTestCase
 
 		$mockedThreeLeggedBotFacade
 			->shouldReceive('createOrUpdateUser')
+			->withArgs(
+				function($user) {
+					return is_a($user, TelegramUser::class);
+				}
+			)
+			->once()
 			->andReturn($fakeUser);
 
 		$mockedThreeLeggedBotFacade

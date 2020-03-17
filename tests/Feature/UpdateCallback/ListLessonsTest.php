@@ -7,6 +7,7 @@ use App\Services\AnkaraCompEng\ThreeLeggedBot\Callbacks\LessonsCallback;
 use Tests\Feature\DemoFile;
 use App\Facades\ThreeLeggedBotFacade;
 use App\User;
+use Telegram\Bot\Objects\User as TelegramUser;
 
 /**
  * @runTestsInSeparateProcesses
@@ -37,6 +38,11 @@ class ListLessonsTest extends FeatureTestCase
 
 		$mockedThreeLeggedBotFacade
 			->shouldReceive('createOrUpdateUser')
+			->withArgs(
+				function($user) {
+					return is_a($user, TelegramUser::class);
+				}
+			)
 			->once()
 			->andReturn($fakeUser);
 

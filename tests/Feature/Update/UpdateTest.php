@@ -8,6 +8,7 @@ use App\Services\AnkaraCompEng\ThreeLeggedBot\Handlers\WebhookHandler;
 use App\Services\AnkaraCompEng\ThreeLeggedBot\Objects\Update;
 use Tests\Feature\DemoFile;
 use App\User;
+use Telegram\Bot\Objects\User as TelegramUser;
 
 /**
  * @runTestsInSeparateProcesses
@@ -34,6 +35,12 @@ class UpdateTest extends FeatureTestCase
 
 		$mockedThreeLeggedBotFacade
 			->shouldReceive('createOrUpdateUser')
+			->withArgs(
+				function($user) {
+					return is_a($user, TelegramUser::class);
+				}
+			)
+			->once()
 			->andReturn($fakeUser);
 
 		$mockedWebHookHandler = $this->mock(WebhookHandler::class)->makePartial();
