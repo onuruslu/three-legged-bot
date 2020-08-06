@@ -29,4 +29,5 @@
 - [x] Callbackler command'lardan ayrılmalı
 - [x] Feature test yazılmalı
 - [ ] ThreeLeggedBotService::login(...) ve WebhookHandler::login(...) birleştirilmeli
-- [ ] Exceptionlar için sadece log tutulmamalı, telegram'dan adminlere yollanmalı
+- [x] Exceptionlar için sadece log tutulmamalı, telegram'dan adminlere yollanmalı
+- [ ] Telegramdan log yollama olayı için unit testler yazılmalı
