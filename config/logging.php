@@ -43,7 +43,7 @@ return [
         'telegram' => [
             'driver' => 'custom',
             'via'    => App\Loggers\Telegram\TelegramLogger::class,
-            'level'  => 'debug',
+            'level'  => 'warning',
         ],
 
         'single' => [
