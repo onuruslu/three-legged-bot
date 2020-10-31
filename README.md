@@ -31,3 +31,5 @@
 - [ ] ThreeLeggedBotService::login(...) ve WebhookHandler::login(...) birleştirilmeli
 - [x] Exceptionlar için sadece log tutulmamalı, telegram'dan adminlere yollanmalı
 - [ ] Telegramdan log yollama olayı için unit testler yazılmalı
+- [ ] Yeni haberlerdeki resimler de gönderilmeli
+- [ ] Yeni haberlerdeki linkler de gönderilmeli
