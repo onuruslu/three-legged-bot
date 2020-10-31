@@ -11,7 +11,7 @@ class AnnouncementTransformer extends MainTransformer {
                 ."\n"
                 .'<code>'.str_repeat('-', 40).'</code>'
                 ."\n"
-                .html_entity_decode(strip_tags($announcement->text))
+                .strip_tags(html_entity_decode(strip_tags($announcement->text)))
                 ."\n©2019 Made with love"
                 ."\n"
                 .$announcement->link
